@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "./.tsbuild/",
+    "sourceMap": true,
+    "target": "es2019",
+    "module": "commonjs",
+    "removeComments": true,
+    "noImplicitAny": true,
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
+    "types": [
+      "node",
+    ],
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "tests",
+    ".eslintrc.js",
+    "playwright.config.ts",
+    "globalSetup.ts"
+  ]
+}
