@@ -21,5 +21,4 @@ export class AuthPage {
         await this.passwordField.fill(password);
         await this.nextButton.click();
     }
-
 }
