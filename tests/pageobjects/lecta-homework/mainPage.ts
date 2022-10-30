@@ -10,7 +10,7 @@ export class LectaMainPage extends BasePage {
   authRegButton(): Button {
     return new Button(
       this.page.locator(`.prosv-button`, { hasText: `Вход / Регистрация` }),
-      "Authorization or Registration"
+      "Authorization or registration"
     );
   }
 

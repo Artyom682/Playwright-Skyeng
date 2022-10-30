@@ -26,7 +26,7 @@ export class SelectTaskPage extends BasePage {
   get toLicensesButton(): Button {
     return new Button(
       this.page.locator(".blue-link", { hasText: "Перейти к лицензиям" }),
-      "To licensesButton"
+      "To licenses"
     );
   }
 

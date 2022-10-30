@@ -15,13 +15,6 @@ export class SelectSubjectPage extends BasePage {
     );
   }
 
-  get nextButton(): Button {
-    return new Button(
-      this.page.locator("lecta-button.button-next"),
-      "Next button for teacher"
-    );
-  }
-
   classNumberButton(classNumber: number): Button {
     return new Button(
       this.page.locator(`lecta-tab`, { hasText: `${classNumber}` }),
