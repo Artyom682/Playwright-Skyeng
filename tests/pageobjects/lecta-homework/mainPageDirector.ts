@@ -1,16 +1,30 @@
-import { Locator, Page } from '@playwright/test';
+import { Page } from "@playwright/test";
+import { BasePage } from "../base-page";
+import { Button } from "../../locators/button";
+import { Block } from "../../locators/block";
 
-export class MainPageDirector {
-    readonly page: Page;
-    readonly buyingMoreLicensesButton: Locator;
-    readonly closePopUpButton: Locator;
-    readonly schoolName: Locator;
+export class MainPageDirector extends BasePage {
+  constructor(page: Page) {
+    super(page);
+  }
 
+  get buyingMoreLicensesButton(): Button {
+    return new Button(
+      this.page.locator(".buy-more-licences"),
+      "Buying more licenses"
+    );
+  }
 
-    constructor(page: Page, titleSchool: string, buttonName: string) {
-        this.page = page;
-        this.buyingMoreLicensesButton = page.locator('.buy-more-licences');
-        this.closePopUpButton = page.locator('[name="close"]');
-        this.schoolName = page.locator(`.auth-wrapper`, {hasText: `${titleSchool}`});
-    }
+  get closePopUpButton(): Button {
+    return new Button(this.page.locator('[name="close"]'), "Close pop-up");
+  }
+
+  schoolName(): Block {
+    return new Block(
+      this.page.locator(`.auth-wrapper`, {
+        hasText: "ГБОУ ЛИЦЕЙ № 126 КАЛИНИНСКОГО РАЙОНА САНКТ-ПЕТЕРБУРГА",
+      }),
+      "School name"
+    );
+  }
 }

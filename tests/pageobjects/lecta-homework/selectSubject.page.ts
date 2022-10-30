@@ -1,28 +1,47 @@
-import { Locator, Page } from '@playwright/test';
-import {Button} from "../../locators/button";
-import {Block} from "../../locators/block";
+import { Page } from "@playwright/test";
+import { Button } from "../../locators/button";
+import { Block } from "../../locators/block";
+import { BasePage } from "../base-page";
 
-export class SelectSubjectPage {
-    readonly page: Page;
-    readonly goToTasksButton: Locator; // все методы локатора
-    readonly workbookButton: Locator;
+export class SelectSubjectPage extends BasePage {
+  constructor(page: Page) {
+    super(page);
+  }
 
-    constructor(page: Page) {
-        this.page = page;
-        this.goToTasksButton = page.locator('lecta-button.button-steps');
-        this.workbookButton = page.locator('[data-qa="workbook-item"]');
-    }
+  get goToTasksButton(): Button {
+    return new Button(
+      this.page.locator(`lecta-button.button-steps`),
+      "Go to tasks"
+    );
+  }
 
-    classNumberButton(classNumber: number): Button {
-        return new Button(this.page.locator(`lecta-tab`, {hasText: `${classNumber}`}), 'Class number');
-    }
+  get nextButton(): Button {
+    return new Button(
+      this.page.locator("lecta-button.button-next"),
+      "Next button for teacher"
+    );
+  }
 
-    subjectCardButton(subjectTitle: string): Button {
+  classNumberButton(classNumber: number): Button {
+    return new Button(
+      this.page.locator(`lecta-tab`, { hasText: `${classNumber}` }),
+      "Class number"
+    );
+  }
 
-        return new Button(this.page.locator(`.subject-title`, {hasText: `${subjectTitle}`}), 'Subject card');
-    }
+  subjectCardButton(subjectTitle: string): Button {
+    return new Button(
+      this.page.locator(`.subject-title`, { hasText: `${subjectTitle}` }),
+      "Subject card"
+    );
+  }
 
-    subjectCardWithLockIconButton(subject: string): Block {
-        return new Block(this.page.locator(`//*[contains(text(), ${subject})]/following-sibling::*[contains(@class, "lock-icon-block")]`), 'subject name');
-    }
+  subjectCardWithLockIconButton(subject: string): Block {
+    return new Block(
+      this.page.locator(
+        `//*[contains(text(), ${subject})]/following-sibling::*[contains(@class, "lock-icon-block")]`
+      ),
+      "subject name"
+    );
+  }
 }

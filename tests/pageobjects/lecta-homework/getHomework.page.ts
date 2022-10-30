@@ -1,22 +1,40 @@
-import { Locator, Page } from '@playwright/test';
+import { Page } from "@playwright/test";
+import { Button } from "../../locators/button";
+import { BasePage } from "../base-page";
 
-export class GetHomeworkPage {
-    readonly page: Page;
-    readonly loginWithProsvIdButton: Locator; // все методы локатора
-    readonly startButton: Locator;
-    readonly closePopUpAtStartButton: Locator;
-    readonly buyingLicenseButton: Locator;
-    readonly schoolAccessActivationButton: Locator;
-    readonly logoutButton: Locator;
+export class GetHomeworkPage extends BasePage {
+  constructor(page: Page) {
+    super(page);
+  }
 
+  get loginWithProsvIdButton(): Button {
+    return new Button(this.page.locator(".prosv-button"), "Login with ProsvID");
+  }
 
-    constructor(page: Page) {
-        this.page = page;
-        this.loginWithProsvIdButton = page.locator('.prosv-button');
-        this.startButton = page.locator('.start-button');
-        this.closePopUpAtStartButton = page.locator('.close-button');
-        this.buyingLicenseButton = page.locator('lecta-button', {hasText: 'Приобрести лицензию'});
-        this.schoolAccessActivationButton = page.locator('lecta-button', {hasText: 'Активировать доступ от школы'});
-        this.logoutButton = page.locator('[href="/logout"]');
-    }
+  get startButton(): Button {
+    return new Button(this.page.locator(".start-button"), "Start");
+  }
+
+  get closePopUpAtStartButton(): Button {
+    return new Button(
+      this.page.locator(".close-button"),
+      "Pop-up at the start homework"
+    );
+  }
+
+  buyingLicenseButton(): Button {
+    return new Button(
+      this.page.locator("lecta-button", { hasText: "Приобрести лицензию" }),
+      "Buying license"
+    );
+  }
+
+  schoolAccessActivationButton(): Button {
+    return new Button(
+      this.page.locator("lecta-button", {
+        hasText: "Активировать доступ от школы",
+      }),
+      "Buying license"
+    );
+  }
 }

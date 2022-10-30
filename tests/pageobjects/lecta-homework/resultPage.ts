@@ -1,14 +1,21 @@
-import { Locator, Page } from '@playwright/test';
+import { Page } from "@playwright/test";
+import { BasePage } from "../base-page";
+import { Button } from "../../locators/button";
+import { Block } from "../../locators/block";
 
-export class ResultPage {
-    readonly page: Page;
-    readonly continueButton: Locator;
-    readonly score: Locator;
+export class ResultPage extends BasePage {
+  constructor(page: Page) {
+    super(page);
+  }
 
+  get continueButton(): Button {
+    return new Button(
+      this.page.locator(`.button-continue`),
+      "Button continue learning"
+    );
+  }
 
-    constructor(page: Page, value: number) {
-        this.page = page;
-        this.continueButton = page.locator(`.button-continue`);
-        this.score = page.locator('.score', { hasText: `${value}`});
-    }
+  get score(): Block {
+    return new Block(this.page.locator(`.score`), "Score value");
+  }
 }

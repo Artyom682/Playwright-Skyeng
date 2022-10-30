@@ -1,15 +1,27 @@
-import { Locator, Page } from '@playwright/test';
+import { Page } from "@playwright/test";
+import { BasePage } from "../base-page";
+import { Button } from "../../locators/button";
 
-export class TasksStudentPage {
-    readonly page: Page;
-    readonly cardSelfStudy: Locator;
-    readonly profileIconButton: Locator;
-    readonly logoutButton: Locator;
+export class TasksStudentPage extends BasePage {
+  constructor(page: Page) {
+    super(page);
+  }
 
-    constructor(page: Page) {
-        this.page = page;
-        this.cardSelfStudy = page.locator('app-student-training-showcase .item');
-        this.profileIconButton = page.locator(`lecta-icon[name=blue-profile]`); // вот эти можно вывести в отдельный page, т.к. они повторяются в каждом лк
-        this.logoutButton = page.locator(`[href="/logout"]`); // вот эти можно вывести в отдельный page, т.к. они повторяются в каждом лк
-    }
+  get cardSelfStudy(): Button {
+    return new Button(
+      this.page.locator(`app-student-training-showcase .item`),
+      "Card self study"
+    );
+  }
+
+  get profileIconButton(): Button {
+    return new Button(
+      this.page.locator(`lecta-icon[name=blue-profile]`),
+      "Profile icon"
+    );
+  }
+
+  get logoutButton(): Button {
+    return new Button(this.page.locator('[href="/logout"]'), "Logout");
+  }
 }
