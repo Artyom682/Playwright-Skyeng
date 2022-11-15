@@ -1,46 +1,35 @@
-import { test } from "../../fixtures/lecta-homework/fixture";
-import { lectaSubjects } from "../../data/lecta-homework";
+import { test } from "../../fixtures/lecta-homework/lecta-homework.fixture";
+import {expect} from "@playwright/test";
 
-test("Студент без лицензий", async ({
-  lectaMainPage,
-  getHomeworkPage,
-  selectSubjectPage,
-  selectTaskPage,
-  authPage,
-  tasksStudentPage,
-  page,
-}) => {
-  await lectaMainPage.goto();
-  await lectaMainPage.authRegButton().click();
-  await authPage.loginProsvId("ucheniktest@mail.ru", "11111111");
-  await getHomeworkPage.closePopUpAtStartButton.click();
-  await page.goto("https://hw.lecta.ru/student/profile");
-  await tasksStudentPage.cardSelfStudy.click();
-  const subjects = lectaSubjects.subjects;
-  for (let i = 0; i < lectaSubjects.subjects.length; i++) {
-    await selectSubjectPage
-      .subjectCardWithLockIconButton(subjects[i])
-      .waitUntilElementIsVisible();
-  }
-  await selectSubjectPage.subjectCardButton("Технология").click();
-  await selectSubjectPage.classNumberButton(8).click();
-  await selectSubjectPage.goToTasksButton.click();
-  await selectTaskPage.toLicensesButton.click();
-  await tasksStudentPage.profileIconButton.click();
-  await tasksStudentPage.logoutButton.click();
-  await page.waitForTimeout(5000);
-});
+const lectaSubjects = {
+  subjects: [
+    "Математика",
+    "Алгебра",
+    "Геометрия",
+    "Информатика",
+    "Русский/язык",
+    "Литература",
+    "Технология",
+    "Английский",
+    "Физика",
+    "Химия",
+    "Биология",
+    "История",
+    "Обществознание",
+    "География",
+    "ОБЖ",
+  ],
+};
 
-test("Наличие двух кнопок", async ({
+test("Создание таски и Наличие двух кнопок у ученика", async ({
   lectaMainPage,
   tasksTeacherPage,
   getHomeworkPage,
   selectSubjectPage,
   selectTaskPage,
-  authPage,
-  page,
+  authPage
 }) => {
-  await lectaMainPage.goto();
+  await lectaMainPage.open();
   await lectaMainPage.authRegButton().click();
   await authPage.loginProsvId("testoviyteacher@mail.ru", "11111111");
   await tasksTeacherPage.createTaskButton.click();
@@ -54,12 +43,11 @@ test("Наличие двух кнопок", async ({
     "https://" + (await tasksTeacherPage.homeworkLink.getLocator.innerText());
   await tasksTeacherPage.profileIconButton.click();
   await tasksTeacherPage.logoutButton.click();
-  await page.waitForTimeout(3000);
-  await page.goto(hwLink);
+  await lectaMainPage.timeout(3000)
+  await getHomeworkPage.open(hwLink);
   await getHomeworkPage.loginWithProsvIdButton.click();
   await authPage.loginProsvId("ucheniktest@mail.ru", "11111111");
-  await getHomeworkPage.buyingLicenseButton().waitUntilElementIsVisible();
-  await getHomeworkPage
-    .schoolAccessActivationButton()
-    .waitUntilElementIsVisible();
+
+  await expect(getHomeworkPage.buyingLicenseButton.getLocator).toBeVisible();
+  await expect(getHomeworkPage.schoolAccessActivationButton.getLocator).toBeVisible();
 });

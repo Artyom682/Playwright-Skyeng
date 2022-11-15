@@ -1,4 +1,5 @@
-import { test } from "../../fixtures/lecta-homework/fixture";
+import { test } from "../../fixtures/lecta-homework/lecta-homework.fixture";
+import {expect} from "@playwright/test";
 
 test("Authorization student", async ({
   lectaMainPage,
@@ -7,12 +8,12 @@ test("Authorization student", async ({
   authPage,
   homeworkResolvePage,
   selectTaskPage,
-  taskStudentPage,
+  tasksStudentPage,
 }) => {
-  await lectaMainPage.goto();
+  await lectaMainPage.open();
   await lectaMainPage.authRegButton().click();
   await authPage.loginProsvId("vasin.artyom@skyeng.ru", "css12345");
-  await taskStudentPage.cardSelfStudy.click();
+  await tasksStudentPage.cardSelfStudy.click();
   await selectSubjectPage.subjectCardButton("Технология").click();
   await selectSubjectPage.classNumberButton(8).click();
   await selectSubjectPage.goToTasksButton.click();
@@ -21,7 +22,8 @@ test("Authorization student", async ({
   await homeworkResolvePage
     .correctAnswerButton("Тонкий слой древесины")
     .click();
-  await homeworkResolvePage.endHomeworkButton.click();
-  await resultPage.score.waitUntilElementIsVisible();
+  await homeworkResolvePage.endHomeworkButton.click()
+  const num = Number(await resultPage.score.getText());
+  await expect(num).toBe(100);
   await resultPage.continueButton.click();
 });
