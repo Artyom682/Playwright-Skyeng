@@ -3,8 +3,11 @@ import { Button } from "../../locators/button";
 import { BasePage } from "../base-page";
 
 export class LectaMainPage extends BasePage {
-  constructor(page: Page) {
+  baseURL: string | undefined;
+
+  constructor(page: Page, baseURL: string | undefined) {
     super(page);
+    this.baseURL = baseURL;
   }
 
   authRegButton(): Button {
@@ -23,7 +26,7 @@ export class LectaMainPage extends BasePage {
     );
   }
 
-  async goto() {
-    await this.page.goto("https://hw.lecta.ru/");
+  async open(): Promise<void> {
+    await this.page.goto("/");
   }
 }

@@ -1,4 +1,4 @@
-import { Page, test } from '@playwright/test';
+import { Page, test } from "@playwright/test";
 
 export class BasePage {
   readonly page: Page;
@@ -16,6 +16,12 @@ export class BasePage {
   async clearCookies(): Promise<void> {
     await test.step(`Очистить Cookies страницы`, async () => {
       await this.page.context().clearCookies();
+    });
+  }
+
+  async timeout(timeout: number): Promise<void> {
+    await test.step(`Ожидаем ${timeout} мс`, async () => {
+      await this.page.waitForTimeout(timeout);
     });
   }
 }

@@ -3,8 +3,11 @@ import { BasePage } from "../base-page";
 import { Button } from "../../locators/button";
 
 export class TasksStudentPage extends BasePage {
-  constructor(page: Page) {
+  baseURL: string | undefined;
+
+  constructor(page: Page, baseURL: string | undefined) {
     super(page);
+    this.baseURL = baseURL;
   }
 
   get cardSelfStudy(): Button {
@@ -23,5 +26,9 @@ export class TasksStudentPage extends BasePage {
 
   get logoutButton(): Button {
     return new Button(this.page.locator('[href="/logout"]'), "Logout");
+  }
+
+  async open() {
+    await this.page.goto("/student/profile");
   }
 }

@@ -22,19 +22,23 @@ export class GetHomeworkPage extends BasePage {
     );
   }
 
-  buyingLicenseButton(): Button {
+  get buyingLicenseButton(): Button {
     return new Button(
       this.page.locator("lecta-button", { hasText: "Приобрести лицензию" }),
       "Buying license"
     );
   }
 
-  schoolAccessActivationButton(): Button {
+  get schoolAccessActivationButton(): Button {
     return new Button(
       this.page.locator("lecta-button", {
         hasText: "Активировать доступ от школы",
       }),
       "Buying license"
     );
+  }
+
+  async open(hwLink: string) {
+    await this.page.goto(hwLink);
   }
 }
