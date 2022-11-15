@@ -1,4 +1,4 @@
-import { Locator, test } from "@playwright/test";
+import {expect, Locator, test} from "@playwright/test";
 import { BaseElement } from "./base-element";
 
 export class Button extends BaseElement {
@@ -20,9 +20,5 @@ export class Button extends BaseElement {
     await test.step(`Нажать на кнопку [${this.name}]`, async () => {
       await this.locator.click();
     });
-  }
-
-  async waitUntilElementIsVisible(): Promise<void> {
-    await this.locator.isVisible();
   }
 }

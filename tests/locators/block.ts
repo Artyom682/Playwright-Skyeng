@@ -6,10 +6,6 @@ export class Block extends BaseElement {
     super(locator, name);
   }
 
-  async waitUntilElementIsVisible(): Promise<void> {
-    await this.locator.isVisible();
-  }
-
   async waitUntilAllElementsAreVisible(): Promise<void> {
     await test.step(`проверить: все блоки видимы`, async () => {
       const count = await this.locator.count();
