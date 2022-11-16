@@ -5,32 +5,22 @@ import type { PlaywrightTestConfig } from "@playwright/test";
 // faker.locale = 'ru';
 // const testURL = ENV.SHOWCASE_URL;
 const config: PlaywrightTestConfig = {
-  // use: {
-  //     headless: false,
-  //     trace: process.env.CI ? 'off' : 'retain-on-failure',
-  //     // connectOptions: process.env.CI ? { wsEndpoint: 'ссылка на хост муна' } : undefined,
-  //     connectOptions: process.env.CI ? { wsEndpoint: 'ссылка на хост муна' } : undefined,
-  //     ignoreHTTPSErrors: true,
-  //     browserName: 'chromium',
-  //     locale: 'ru',
-  //     launchOptions: {
-  //         // devtools: true,
-  //         args: ['--no-sandbox', '--disable-dev-shm-usage', '--disable-setuid-sandbox', '--start-maximized'],
-  //     },
-  //     baseURL: 'наш урл',
-  //     actionTimeout: 30_000,
-  //     screenshot: 'only-on-failure',
-  // },
-  globalTimeout: 600000,
   use: {
-    /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-    actionTimeout: 0,
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    //baseURL: 'https://localhost:3000',
-    headless: true,
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "on-first-retry",
+      headless: false,
+      trace: process.env.CI ? 'off' : 'retain-on-failure',
+      // connectOptions: process.env.CI ? { wsEndpoint: 'ссылка на хост муна' } : undefined,
+      ignoreHTTPSErrors: true,
+      browserName: 'chromium',
+      locale: 'ru',
+      launchOptions: {
+          // devtools: true,
+          args: ['--no-sandbox', '--disable-dev-shm-usage', '--disable-setuid-sandbox', '--start-maximized'],
+      },
+      baseURL: 'https://hw.lecta.ru',
+      actionTimeout: 30_000,
+      screenshot: 'only-on-failure',
   },
+  globalTimeout: 600000,
   projects: [
     {
       name: "lecta-homework",
