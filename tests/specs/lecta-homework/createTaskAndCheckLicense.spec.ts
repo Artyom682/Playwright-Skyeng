@@ -1,25 +1,6 @@
 import { test } from "../../fixtures/lecta-homework/lecta-homework.fixture";
 import {expect} from "@playwright/test";
 
-const lectaSubjects = {
-  subjects: [
-    "Математика",
-    "Алгебра",
-    "Геометрия",
-    "Информатика",
-    "Русский/язык",
-    "Литература",
-    "Технология",
-    "Английский",
-    "Физика",
-    "Химия",
-    "Биология",
-    "История",
-    "Обществознание",
-    "География",
-    "ОБЖ",
-  ],
-};
 
 test("Создание таски и Наличие двух кнопок у ученика", async ({
   lectaMainPage,

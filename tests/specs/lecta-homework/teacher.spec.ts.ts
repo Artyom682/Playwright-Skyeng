@@ -19,6 +19,7 @@ test("basic cjm teacher-student", async ({
   const hwLink = "https://hw.lecta.ru/student/" + (await createHomework()); // ссылка на дз
   await tasksTeacherPage.profileIconButton.click();
   await tasksTeacherPage.logoutButton.click();
+  await lectaMainPage.page.waitForTimeout(2000);
 
   await getHomeworkPage.open(hwLink);
   await getHomeworkPage.loginWithProsvIdButton.click();
@@ -34,7 +35,6 @@ test("basic cjm teacher-student", async ({
   await tasksStudentPage.profileIconButton.click();
   await tasksStudentPage.logoutButton.click();
 
-  await lectaMainPage.open();
   await lectaMainPage.authRegButton().click();
   await authPage.loginProsvId("testoviyteacher@mail.ru", "11111111");
   const scoreTeacher = Number(
